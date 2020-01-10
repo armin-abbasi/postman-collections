@@ -1,0 +1,790 @@
+{
+	"info": {
+		"_postman_id": "a926ff72-6c9d-4b8c-b097-999bd32b903b",
+		"name": "Elasticsearch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Basics",
+			"item": [
+				{
+					"name": "Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:9200/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Mapping",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"year\": {\n\t\t\t\t\"type\": \"date\"\n\t\t\t}\n\t\t}\n\t}\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Mapping",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_mapping",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_mapping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Document",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"genre\": [\"Sci-Fi\", \"IMAX\"],\n\t\"title\": \"Interstaller 2\",\n\t\"casts\": [\"Mathew Macounaghy\", \"The Other Guy\"],\n\t\"year\": 2019\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_doc/209489",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_doc",
+								"209489"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Document",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Force of awakens\"\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_doc/122886",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_doc",
+								"122886"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Document Bulk",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"create\" : { \"_index\" : \"movies\", \"_id\" : \"135569\" } }\n{ \"id\": \"135569\", \"title\" : \"Star Trek Beyond\", \"year\":2016 , \"genre\":[\"Action\", \"Adventure\", \"Sci-Fi\"] }\n{ \"create\" : { \"_index\" : \"movies\", \"_id\" : \"122886\" } }\n{ \"id\": \"122886\", \"title\" : \"Star Wars: Episode VII - The Force Awakens\", \"year\":2015 , \"genre\":[\"Action\", \"Adventure\", \"Fantasy\", \"Sci-Fi\", \"IMAX\"] }\n{ \"create\" : { \"_index\" : \"movies\", \"_id\" : \"109487\" } }\n{ \"id\": \"109487\", \"title\" : \"Interstellar\", \"year\":2014 , \"genre\":[\"Sci-Fi\", \"IMAX\"] }\n{ \"create\" : { \"_index\" : \"movies\", \"_id\" : \"58559\" } }\n{ \"id\": \"58559\", \"title\" : \"Dark Knight, The\", \"year\":2008 , \"genre\":[\"Action\", \"Crime\", \"Drama\", \"IMAX\"] }\n{ \"create\" : { \"_index\" : \"movies\", \"_id\" : \"1924\" } }\n{ \"id\": \"1924\", \"title\" : \"Plan 9 from Outer Space\", \"year\":1959 , \"genre\":[\"Horror\", \"Sci-Fi\"] }\n"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/_bulk",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"_bulk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All  Index Docs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search?pretty",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Simple Term Query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search?q=dark",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "dark"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete A Document",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_doc/58559",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_doc",
+								"58559"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dcoument Partial Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"doc\": {\n\t\t\"title\": \"Interstellar\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_doc/109487/_update?retry_on_conflict=5",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_doc",
+								"109487",
+								"_update"
+							],
+							"query": [
+								{
+									"key": "retry_on_conflict",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Query Match",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": {\n        \"match\": {\n            \"title\": \"Star Wars\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search?pretty",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Query - Match Phrase",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"query\": {\n\t\t\"match_phrase\": {\n\t\t\t\"text_entry\": \"be or not to be\"\n\t\t}\n\t}\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/shakespeare/_search",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"shakespeare",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Relationships - Has Parent",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": {\n        \"has_parent\": {\n            \"parent_type\": \"franchise\",\n            \"query\": {\n                \"match\": {\n                    \"title\": \"Star Wars\"\n                }\n            }\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/series/_search",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"series",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Relationships - Has Child",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"query\": {\n\t\t\"has_child\": {\n\t\t\t\"type\": \"film\",\n\t\t\t\"query\": {\n\t\t\t\t\"match\": {\n\t\t\t\t\t\"title\": \"force awakens\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/series/_search",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"series",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Queries",
+			"item": [
+				{
+					"name": "Lite Query",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search?q=+year>2010+title:Star",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "+year>2010+title:Star"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bool Query - Must",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"query\": {\n\t\t\"bool\": {\n\t\t\t\"must\": {\"term\": {\"title\": \"star\"} },\n\t\t\t\"filter\": {\"range\": {\"year\": {\"gte\": 2010} } }\n\t\t}\n\t}\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Match Phrase Query - Slop",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": {\n        \"match_phrase\": {\n            \"title\": {\n                \"query\": \"star beyond\",\n                \"slop\": 1\n            }\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paginated Query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from\": \"0\",\n    \"size\": \"2\",\n    \"query\": {\n        \"match\": {\n            \"title\": \"star\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sorted Query - Subfields",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search?sort=title.raw",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "title.raw"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prefix Query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"query\": {\n\t\t\"prefix\": {\n\t\t\t\"year\": \"201\"\n\t\t}\n\t}\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wildcard Query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"query\": {\n\t\t\"wildcard\": {\n\t\t\t\"year\": \"19*\"\n\t\t}\n\t}\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Match Phrase Prefix",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": {\n        \"match_phrase_prefix\": {\n            \"title\": {\n            \t\"query\": \"Star tr\",\n            \t\"slop\": 10\n            }\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:9200/movies/_search?pretty",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9200",
+							"path": [
+								"movies",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
